@@ -1,5 +1,6 @@
 import express from "express";
 import userRoutes from "./src/routes/user.routes.js";
+import messageRoutes from "./src/routes/message.routes.js";
 import dotenv from "dotenv";
 import {connectDB} from "./src/lib/db.js";
 import cookieParser from "cookie-parser";
@@ -15,6 +16,7 @@ app.use(express.static("public"));
 
 // import routes
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/message", messageRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
