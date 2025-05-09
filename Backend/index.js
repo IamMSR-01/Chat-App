@@ -5,9 +5,9 @@ import dotenv from "dotenv";
 import { connectDB } from "./src/lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { app, server } from "./src/lib/socket.js"
 
 dotenv.config();
-const app = express();
 const PORT = process.env.PORT || 7000;
 
 app.use(express.json({ limit: "10mb" }));
@@ -25,7 +25,7 @@ app.use(
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/messages", messageRoutes);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
   connectDB();
 });

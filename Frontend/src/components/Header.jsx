@@ -59,14 +59,7 @@ const Header = () => {
               </button>
             </>
           ) : (
-            <>
-              <Link
-                to={"/login"}
-                className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2 text-lg font-semibold"
-              >
-                Login
-              </Link>
-            </>
+            <></>
           )}
         </nav>
 
@@ -81,7 +74,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden mt-2 space-y-2 px-4 pb-4">
+        <div className="md:hidden mt-6 space-y-2 pb-4">
           <Link
             to="/settings"
             className="block text-white hover:text-cyan-400 transition duration-200"
@@ -125,13 +118,7 @@ const Header = () => {
               </button>
             </>
           ) : (
-            <Link
-              to={"/login"}
-              className="block text-white hover:text-cyan-400 transition duration-200"
-              onClick={() => setMenuOpen(false)}
-            >
-              Login
-            </Link>
+            <></>
           )}
         </div>
       )}

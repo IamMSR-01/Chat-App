@@ -13,7 +13,7 @@ import Settings from "./pages/Settings";
 import Footer from "./components/Footer";
 
 function App() {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
 
   useEffect(() => {
     checkAuth();

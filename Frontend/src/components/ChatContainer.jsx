@@ -1,20 +1,52 @@
-import React, { useEffect } from "react";
-import { useChatStore } from "../store/useChatStore.js";
-import ChatHeader from "./ChatHeader.jsx";
-import MessageInput from "./MessageInput.jsx";
-import MessageSkeleton from "./skeletons/MessageSkeleton.jsx";
-import { useAuthStore } from "../store/authStore.js";
-import { formatMessageTime } from "../utils/dateFormate.js"
+import { useChatStore } from "../store/useChatStore";
+import { useEffect, useRef } from "react";
 
-function ChatContainer() {
-  const { messages, getMessages, isMessagesLoading, selectedUser } =
-    useChatStore();
+import ChatHeader from "./ChatHeader";
+import MessageInput from "./MessageInput";
+import MessageSkeleton from "./skeletons/MessageSkeleton";
+import { useAuthStore } from "../store/authStore";
+import { formatMessageTime } from "../utils/dateFormate";
 
+const ChatContainer = () => {
+  const {
+    messages,
+    getMessages,
+    isMessagesLoading,
+    selectedUser,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore();
   const { authUser } = useAuthStore();
+  const messageEndRef = useRef(null);
+
+  console.log("isMessagesLoading:", isMessagesLoading);
 
   useEffect(() => {
+    console.log("Selected User in ChatContainer:", selectedUser);
+    if (!selectedUser || !selectedUser._id) return;
     getMessages(selectedUser._id);
-  }, [selectedUser._id, getMessages]);
+
+    subscribeToMessages();
+
+    return () => unsubscribeFromMessages();
+  }, [selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages]);
+
+  useEffect(() => {
+    if (messageEndRef.current && messages) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  if (!selectedUser) {
+    return (
+      <div className="flex-1 flex items-center justify-center text-zinc-500">
+        Select a user to start chatting
+      </div>
+    );
+  }
+
+  
+
 
   if (isMessagesLoading) {
     return (
@@ -29,7 +61,8 @@ function ChatContainer() {
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
-      <div className="flex-1 p-4 space-y-4 overflow-y-auto">
+
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
             key={message._id}
@@ -43,20 +76,8 @@ function ChatContainer() {
                 <img
                   src={
                     message.senderId === authUser._id
-                      ? authUser.avatar ||
-                        `https://ui-avatars.com/api/?name=${authUser.fullName
-                          .trim()
-                          .split(" ")
-                          .slice(0, 2)
-                          .map((n) => n[0].toUpperCase())
-                          .join(" ")}`
-                      : selectedUser.avatar ||
-                        `https://ui-avatars.com/api/?name=${authUser.fullName
-                          .trim()
-                          .split(" ")
-                          .slice(0, 2)
-                          .map((n) => n[0].toUpperCase())
-                          .join(" ")}`
+                      ? authUser.avatar || "/avatar.png"
+                      : selectedUser.avatar || "/avatar.png"
                   }
                   alt="profile pic"
                 />
@@ -80,9 +101,9 @@ function ChatContainer() {
           </div>
         ))}
       </div>
+
       <MessageInput />
     </div>
   );
-}
-
+};
 export default ChatContainer;
