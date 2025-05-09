@@ -20,8 +20,8 @@ const Header = () => {
             to="/settings"
             className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
           >
-            <Settings className="w-4 h-4" />
-            <span>Settings</span>
+            <Settings className="w-6 h-6" />
+            <span className="text-lg font-semibold">Settings</span>
           </Link>
 
           {authUser ? (
@@ -30,8 +30,24 @@ const Header = () => {
                 to="/profile"
                 className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
               >
-                <UserRoundPen />
-                <span>{authUser.fullName}</span>
+                <div>
+                  <img
+                    className="w-8 h-8 rounded-full border-2 border-white"
+                    src={
+                      authUser.avatar ||
+                      `https://ui-avatars.com/api/?name=${authUser.fullName
+                        .trim()
+                        .split(" ")
+                        .slice(0, 2)
+                        .map((n) => n[0].toUpperCase())
+                        .join(" ")}`
+                    }
+                    alt=""
+                  />
+                </div>
+                <span className="text-lg font-semibold">
+                  {authUser.fullName}
+                </span>
               </Link>
 
               <button
@@ -39,14 +55,14 @@ const Header = () => {
                 className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
               >
                 <LogOut />
-                <span>Logout</span>
+                <span className="text-lg font-semibold">Logout</span>
               </button>
             </>
           ) : (
             <>
               <Link
                 to={"/login"}
-                className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
+                className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2 text-lg font-semibold"
               >
                 Login
               </Link>
@@ -72,7 +88,7 @@ const Header = () => {
             onClick={() => setMenuOpen(false)}
           >
             <div className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
+              <Settings className="w-5 h-5" />
               <span>Settings</span>
             </div>
           </Link>
@@ -84,7 +100,13 @@ const Header = () => {
                 onClick={() => setMenuOpen(false)}
               >
                 <div className="flex items-center gap-2">
-                  <UserRoundPen />
+                  <div>
+                    <img
+                      className="w-5 h-5 rounded-full border-2 border-white"
+                      src={authUser.avatar}
+                      alt=""
+                    />
+                  </div>
                   <span>{authUser.fullName}</span>
                 </div>
               </Link>
