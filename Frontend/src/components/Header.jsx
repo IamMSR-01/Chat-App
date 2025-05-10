@@ -8,9 +8,9 @@ const Header = () => {
   const { logout, authUser } = useAuthStore();
 
   return (
-    <header className="w-full sticky px-4 sm:px-6 py-4 bg-white/10 backdrop-blur-md border rounded-2xl border-white/20 shadow-md bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e]">
+    <header className="w-full sticky px-4 sm:px-6 py-4 backdrop-blur-md border rounded-2xl border-white/20 shadow-md ">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="text-3xl font-bold text-white">
+        <Link to="/" className="text-3xl font-bold ">
           MyApp
         </Link>
 
@@ -18,7 +18,7 @@ const Header = () => {
         <nav className="hidden md:flex space-x-10">
           <Link
             to="/settings"
-            className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
+            className=" hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
           >
             <Settings className="w-6 h-6" />
             <span className="text-lg font-semibold">Settings</span>
@@ -28,11 +28,11 @@ const Header = () => {
             <>
               <Link
                 to="/profile"
-                className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
+                className=" hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
               >
                 <div>
                   <img
-                    className="w-8 h-8 rounded-full border-2 border-white"
+                    className="w-8 h-8 rounded-full border-2 "
                     src={
                       authUser.avatar ||
                       `https://ui-avatars.com/api/?name=${authUser.fullName
@@ -52,7 +52,7 @@ const Header = () => {
 
               <button
                 onClick={logout}
-                className="text-white hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
+                className=" hover:text-cyan-400 transition duration-200 flex items-center justify-center gap-2"
               >
                 <LogOut />
                 <span className="text-lg font-semibold">Logout</span>
@@ -65,7 +65,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden "
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -77,7 +77,7 @@ const Header = () => {
         <div className="md:hidden mt-6 space-y-2 pb-4">
           <Link
             to="/settings"
-            className="block text-white hover:text-cyan-400 transition duration-200"
+            className="block  hover:text-cyan-400 transition duration-200"
             onClick={() => setMenuOpen(false)}
           >
             <div className="flex items-center gap-2">
@@ -89,7 +89,7 @@ const Header = () => {
             <>
               <Link
                 to="/profile"
-                className="block text-white hover:text-cyan-400 transition duration-200"
+                className="block  hover:text-cyan-400 transition duration-200"
                 onClick={() => setMenuOpen(false)}
               >
                 <div className="flex items-center gap-2">
@@ -109,7 +109,7 @@ const Header = () => {
                   logout();
                   setMenuOpen(false);
                 }}
-                className="block text-white hover:text-cyan-400 transition duration-200"
+                className="block  hover:text-cyan-400 transition duration-200"
               >
                 <div className="flex items-center gap-2">
                   <LogOut />

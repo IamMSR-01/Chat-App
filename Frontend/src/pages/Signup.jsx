@@ -53,19 +53,19 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl shadow-2xl p-8 sm:p-12 w-full max-w-md">
-        <h2 className="text-3xl font-semibold text-white mb-6 text-center">
+        <h2 className="text-3xl font-semibold mb-6 text-center">
           Create Account
         </h2>
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Full Name */}
           <div>
-            <label className="text-white block mb-1 text-sm">Full Name</label>
+            <label className=" block mb-1 text-sm">Full Name</label>
             <input
               type="text"
               placeholder="Enter your full name"
-              className="w-full px-4 py-2 rounded-xl bg-white/10 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full px-4 py-2 rounded-xl bg-black text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-cyan-400"
               required
               onChange={(e) =>
                 setFormData({ ...formData, fullName: e.target.value })
@@ -76,11 +76,11 @@ const Signup = () => {
 
           {/* Email */}
           <div>
-            <label className="text-white block mb-1 text-sm">Email</label>
+            <label className=" block mb-1 text-sm">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full px-4 py-2 rounded-xl bg-white/10 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full px-4 py-2 rounded-xl bg-black text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-cyan-400"
               required
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -91,12 +91,12 @@ const Signup = () => {
 
           {/* Password */}
           <div>
-            <label className="text-white block mb-1 text-sm">Password</label>
+            <label className=" block mb-1 text-sm">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                className="w-full px-4 py-2 rounded-xl bg-white/10 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-cyan-400 pr-10"
+                className="w-full px-4 py-2 rounded-xl bg-black text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-cyan-400 pr-10"
                 required
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
@@ -115,7 +115,7 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="w-full py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-xl font-semibold transition duration-200"
+            className="w-full py-2 bg-cyan-500 hover:bg-cyan-600 text-black rounded-xl font-semibold transition duration-200"
             disabled={isSigningUp}
           >
             {isSigningUp ? (
@@ -127,7 +127,7 @@ const Signup = () => {
             )}
           </button>
 
-          <div className="text-center text-white mt-4">
+          <div className="text-center mt-4">
             <p className="text-sm">
               Already have an account?{" "}
               <Link to="/login" className="text-cyan-500 hover:underline">

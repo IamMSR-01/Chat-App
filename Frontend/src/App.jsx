@@ -11,9 +11,11 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Footer from "./components/Footer";
+import { useThemeStore } from "./store/useThemeStore";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
+  const { theme } = useThemeStore();
 
   useEffect(() => {
     checkAuth();
@@ -28,7 +30,7 @@ function App() {
   }
 
   return (
-    <>
+    <div data-theme={theme}>
       <Toaster position="top-center" reverseOrder={false} />
       <Header />
       <Routes>
@@ -55,7 +57,7 @@ function App() {
         <Route path="*" element={<Navigate to={authUser ? "/" : "/login"} />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 

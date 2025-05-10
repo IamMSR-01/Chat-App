@@ -19,8 +19,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] px-4">
-      <div className="w-full max-w-xl p-8 sm:p-10 rounded-2xl backdrop-blur-md bg-white/10 border border-white/20 shadow-2xl text-white">
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-xl p-8 sm:p-10 rounded-2xl backdrop-blur-md bg-white/10 border border-white/20 shadow-2xl">
         <div className="flex flex-col items-center gap-4">
           <div className="relative">
             <img
@@ -59,7 +59,7 @@ const Profile = () => {
           </div>
           <div className="flex items-center text-center gap-2">
           <Mail />
-          <p className="text-gray-300 text-sm">{authUser.email}</p>
+          <p className=" text-sm">{authUser.email}</p>
           </div>
         </div>
 

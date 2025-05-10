@@ -5,17 +5,18 @@ import SidebarSkeleton from "./skeletons/SidebarSkeleton ";
 import { Users } from "lucide-react";
 
 const Sidebar = () => {
-  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
-  const { onlineUsers } = useAuthStore();
-  // const [showOnlineOnly, setShowOnlineOnly] = useState(false);
+  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } =
+    useChatStore();
+  const { onlineUsers, authUser } = useAuthStore();
+  const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
   useEffect(() => {
     getUsers();
   }, [getUsers]);
 
-  // const filteredUsers = showOnlineOnly
-  //   ? users.filter((user) => onlineUsers.includes(user._id))
-  //   : users;
+  const filteredUsers = showOnlineOnly
+    ? users.filter((user) => onlineUsers.includes(user._id))
+    : users;
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
@@ -27,7 +28,7 @@ const Sidebar = () => {
           <span className="font-medium hidden lg:block">Contacts</span>
         </div>
         {/* TODO: Online filter toggle */}
-        {/* <div className="mt-3 hidden lg:flex items-center gap-2">
+        <div className="mt-3 hidden lg:flex items-center gap-2">
           <label className="cursor-pointer flex items-center gap-2">
             <input
               type="checkbox"
@@ -38,23 +39,35 @@ const Sidebar = () => {
             <span className="text-sm">Show online only</span>
           </label>
           <span className="text-xs text-zinc-500">({onlineUsers.length - 1} online)</span>
-        </div> */}
+        </div>
       </div>
 
       <div className="overflow-y-auto w-full py-3">
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
             className={`
               w-full p-3 flex items-center gap-3
               hover:bg-base-300 transition-colors
-              ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}
+              ${
+                selectedUser?._id === user._id
+                  ? "bg-base-300 ring-1 ring-base-300"
+                  : ""
+              }
             `}
           >
             <div className="relative mx-auto lg:mx-0">
               <img
-                src={user.avatar || "/avatar.png"}
+                src={
+                  user.avatar ||
+                  `https://ui-avatars.com/api/?name=${authUser.fullName
+                    .trim()
+                    .split(" ")
+                    .slice(0, 2)
+                    .map((n) => n[0].toUpperCase())
+                    .join(" ")}`
+                }
                 alt={user.name}
                 className="size-12 object-cover rounded-full"
               />
@@ -76,9 +89,9 @@ const Sidebar = () => {
           </button>
         ))}
 
-        {/* {filteredUsers.length === 0 && (
+        {filteredUsers.length === 0 && (
           <div className="text-center text-zinc-500 py-4">No online users</div>
-        )} */}
+        )}
       </div>
     </aside>
   );
