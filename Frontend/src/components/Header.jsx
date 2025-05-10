@@ -10,8 +10,11 @@ const Header = () => {
   return (
     <header className="w-full sticky px-4 sm:px-6 py-4 backdrop-blur-md border rounded-2xl border-white/20 shadow-md ">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="text-3xl font-bold ">
-          MyApp
+        <Link to="/" className="text-3xl font-bold flex justify-between items-center gap-4">
+          <span>
+            <img className="h-12 w-12 rounded-full object-cover" src="Chattrix Logo.png" alt="" />
+          </span>
+          <span>Chattrix</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -64,10 +67,7 @@ const Header = () => {
         </nav>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden "
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
+        <button className="md:hidden " onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
