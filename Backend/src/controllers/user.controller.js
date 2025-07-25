@@ -52,14 +52,29 @@ export const login = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User does not found" });
+
+    // --- Start of Debugging Logs ---
+    console.log("--- LOGIN ATTEMPT ---");
+    if (user) {
+      console.log("USER FOUND IN DB:", user.email);
+      console.log("PASSWORD FROM REQUEST:", password);
+      console.log("HASHED PASSWORD IN DB:", user.password);
+    } else {
+      console.log("USER NOT FOUND FOR EMAIL:", email);
+      // If user is not found, we can exit early.
+      return res.status(404).json({ message: "User not found" });
     }
+    // --- End of Debugging Logs ---
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    
+    // Log the comparison result
+    console.log("BCRYPT COMPARE RESULT:", isPasswordCorrect);
+
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
+
     generateToken(user._id, res);
     res.status(200).json({
       _id: user._id,
@@ -68,7 +83,7 @@ export const login = async (req, res) => {
       avatar: user.avatar,
     });
   } catch (error) {
-    console.error(error);
+    console.error("LOGIN FAILED WITH ERROR:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
