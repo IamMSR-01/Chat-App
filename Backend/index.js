@@ -24,6 +24,12 @@ app.use(
   })
 );
 
+// --- START OF TEST ROUTE ---
+app.get("/test", (req, res) => {
+  res.status(200).send("Backend is running the latest code! Deployed successfully.");
+});
+// --- END OF TEST ROUTE ---
+
 // import routes
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/messages", messageRoutes);
