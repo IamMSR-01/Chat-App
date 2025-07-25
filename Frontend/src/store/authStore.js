@@ -3,7 +3,8 @@ import API from "../utils/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-const serverUrl = import.meta.env.MODE === "development" ? "http://localhost:5000" : "/"
+// Use the environment variable for the backend URL
+const serverUrl = import.meta.env.VITE_BASE_URL;
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
@@ -84,6 +85,8 @@ export const useAuthStore = create((set, get) => ({
   connectSocket: () => {
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
+    
+    // The serverUrl is now correct for both development and production
     const socket = io(serverUrl, {
       query: {
         userId: authUser._id,
