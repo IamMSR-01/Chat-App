@@ -5,10 +5,12 @@ import express from "express";
 const app = express();
 const server = http.createServer(app);
 
-
+// Yahan humne CORS options theek kar diye hain
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173"],
+    origin: process.env.CORS_ORIGIN, // Yeh aapke Render environment variable se aayega
+    credentials: true, // Yeh zaroori hai cookies ke liye
+    methods: ["GET", "POST"],
   },
 });
 
